@@ -6,7 +6,9 @@ const cors = require("cors");
 const app = express();
 
 dotenv.config();
-app.use(cors());
+app.use(cors({
+  origin: "https://yourapp.vercel.app"
+}));
 app.use(express.json());
 
 mongoose.connect(process.env.Mongo_URI)  
