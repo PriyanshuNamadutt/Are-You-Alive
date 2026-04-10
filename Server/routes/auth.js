@@ -9,6 +9,10 @@ const jwt = require("jsonwebtoken");
 const helmet     = require('helmet');
 const { body, param, validationResult } = require('express-validator');
 
+router.get("/", () => {
+    console.log("getting a get request");
+});
+
 router.post("/register", async (req, res) => {
     const {email, password} = req.body;
 
