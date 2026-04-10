@@ -701,7 +701,7 @@ async function loadProfile() {
     const token = localStorage.getItem("token");
     let data;
     try {
-      const res = await fetch("https://are-you-alive-2.onrender.com/api/profile" , {
+      const res = await fetch("https://are-you-alive-4.onrender.com/api/profile" , {
         headers: {"Authorization": "Bearer " + token }
       });
       if (!res.ok) throw new Error();
@@ -793,7 +793,7 @@ document.getElementById('profileForm').addEventListener('submit', async (e) => {
   try {
 
     const token = localStorage.getItem("token");
-    const res = await fetch("https://are-you-alive-2.onrender.com/api/edit-profile", {
+    const res = await fetch("https://are-you-alive-4.onrender.com/api/edit-profile", {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json', "Authorization": "Bearer " + token },
       body: JSON.stringify(payload),
