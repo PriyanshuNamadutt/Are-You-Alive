@@ -7,7 +7,7 @@ const app = express();
 
 dotenv.config();
 app.use(cors({
-  origin: "https://are-you-alive-2.onrender.com"
+  origin: "https://are-you-alive-1bl4.vercel.app"
 }));
 app.use(express.json());
 
