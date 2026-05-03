@@ -520,12 +520,6 @@
     particlesEl.appendChild(p);
   }
 
-  // ── Click Me button ────────────────────────────────────────────────────────
-//   const clickMeBtn  = document.getElementById('clickMeBtn');
-//   const aliveModal  = document.getElementById('aliveModal');
-//   const overlay     = document.getElementById('overlay');
-//   const closeModal  = document.getElementById('closeModal');
-
   function openModal() {
     aliveModal.classList.add('show');
     overlay.classList.add('show');
@@ -540,7 +534,7 @@
 
     const token = localStorage.getItem("token");
 
-    const res = await fetch("http://localhost:5000/api/click", {
+    const res = await fetch("https://are-you-alive-4.onrender.com/api/click", {
         method: "PATCH",
         headers: {
             "Content-Type": "application/json",
