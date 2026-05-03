@@ -37,7 +37,6 @@
     padding: 40px 20px 80px;
   }
 
-  /* Subtle texture */
   body::before {
     content: '';
     position: fixed;
@@ -60,7 +59,6 @@
     to   { opacity: 1; transform: translateY(0); }
   }
 
-  /* ── Page Title ── */
   .page-title-block {
     display: flex;
     align-items: center;
@@ -90,7 +88,6 @@
   .back-link:hover { color: var(--accent); }
   .back-link svg { width: 14px; height: 14px; }
 
-  /* ── Avatar strip ── */
   .avatar-strip {
     background: var(--surface);
     border: 1px solid var(--border);
@@ -103,10 +100,7 @@
     box-shadow: var(--shadow);
   }
 
-  .avatar-wrap {
-    position: relative;
-    flex-shrink: 0;
-  }
+  .avatar-wrap { position: relative; flex-shrink: 0; }
 
   .avatar {
     width: 80px; height: 80px;
@@ -143,11 +137,12 @@
     font-size: 1.35rem;
     font-weight: 600;
     margin-bottom: 4px;
+    color: var(--muted);
+    font-style: italic;
   }
 
   .avatar-info p { font-size: 0.82rem; color: var(--muted); }
 
-  /* ── Card ── */
   .card {
     background: var(--surface);
     border: 1px solid var(--border);
@@ -193,7 +188,6 @@
     padding: 3px 10px;
   }
 
-  /* ── Form Grid ── */
   .form-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -202,11 +196,7 @@
 
   .form-grid .full { grid-column: 1 / -1; }
 
-  .field {
-    display: flex;
-    flex-direction: column;
-    gap: 7px;
-  }
+  .field { display: flex; flex-direction: column; gap: 7px; }
 
   .field label {
     font-size: 0.75rem;
@@ -232,7 +222,6 @@
     font-weight: 400;
     transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
     outline: none;
-    /* -webkit-appearance: none; */
   }
 
   .field input:focus,
@@ -249,9 +238,14 @@
 
   .field textarea { resize: vertical; min-height: 80px; }
 
-  .field select { cursor: pointer; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%238a8078' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; padding-right: 36px; }
+  .field select {
+    cursor: pointer;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%238a8078' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    padding-right: 36px;
+  }
 
-  /* Toggle */
   .toggle-field {
     display: flex;
     align-items: center;
@@ -265,12 +259,7 @@
   .toggle-field .tl { font-size: 0.92rem; }
   .toggle-field .ts { font-size: 0.78rem; color: var(--muted); }
 
-  .toggle {
-    position: relative;
-    width: 42px; height: 24px;
-    flex-shrink: 0;
-  }
-
+  .toggle { position: relative; width: 42px; height: 24px; flex-shrink: 0; }
   .toggle input { opacity: 0; width: 0; height: 0; position: absolute; }
 
   .toggle-track {
@@ -296,7 +285,6 @@
   .toggle input:checked ~ .toggle-track { background: var(--accent); }
   .toggle input:checked ~ .toggle-track::after { transform: translateX(18px); }
 
-  /* ── Emergency Contact Cards ── */
   .ec-list { display: flex; flex-direction: column; gap: 16px; }
 
   .ec-item {
@@ -328,7 +316,6 @@
     justify-content: center;
     flex-shrink: 0;
   }
-
 
   .ec-header span { font-size: 0.85rem; font-weight: 500; }
 
@@ -378,7 +365,6 @@
   }
   .add-contact-btn svg { width: 16px; height: 16px; }
 
-  /* ── Actions ── */
   .actions {
     display: flex;
     align-items: center;
@@ -419,7 +405,6 @@
 
   .btn svg { width: 16px; height: 16px; }
 
-  /* ── Toast ── */
   .toast {
     position: fixed;
     bottom: 28px;
@@ -443,7 +428,6 @@
   .toast.error   { background: var(--danger-light);  border: 1px solid rgba(192,57,43,0.25);  color: var(--danger); }
   .toast svg { width: 17px; height: 17px; flex-shrink: 0; }
 
-  /* Loading overlay */
   .btn-primary .spinner {
     width: 16px; height: 16px;
     border: 2px solid rgba(255,255,255,0.4);
@@ -469,7 +453,6 @@
 <body>
 <div class="wrapper">
 
-  <!-- Page header -->
   <div class="page-title-block">
     <h1>Edit <span>Profile</span></h1>
     <a href="profile.html" class="back-link">
@@ -481,14 +464,14 @@
   <!-- Avatar strip -->
   <div class="avatar-strip">
     <div class="avatar-wrap">
-      <div class="avatar" id="avatarInitials">AM</div>
+      <div class="avatar" id="avatarInitials">?</div>
       <div class="avatar-btn" title="Change photo">
         <svg viewBox="0 0 24 24"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
       </div>
     </div>
     <div class="avatar-info">
-      <h3 id="avatarName">Arjun Mehta</h3>
-      <p>USR-2847 · Changes are saved to your account</p>
+      <h3 id="avatarName">Your Name</h3>
+      <p>Fill in your details below to complete your profile</p>
     </div>
   </div>
 
@@ -600,7 +583,7 @@
           <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 014.12 12 19.79 19.79 0 011.05 3.4 2 2 0 013 1.22h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L7.09 9a16 16 0 006.29 6.29l1.14-1.14a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
         </div>
         <h2>Emergency Contacts</h2>
-        <span class="count" id="contactCount">3 contacts</span>
+        <span class="count" id="contactCount">0 contacts</span>
       </div>
       <div class="ec-list" id="ecList"></div>
       <button type="button" class="add-contact-btn" id="addContactBtn" style="margin-top:14px">
@@ -631,14 +614,9 @@
 </div>
 
 <script>
-// ══════════════════════════════════════════════════════
-//  CONFIG — point to your backend
-// ══════════════════════════════════════════════════════
-const API_BASE = 'http://localhost:3000/api';  // ← change to your server URL
+const API_BASE = 'http://localhost:5000/api';
 
-// ══════════════════════════════════════════════════════
-//  EMERGENCY CONTACTS
-// ══════════════════════════════════════════════════════
+// ── Emergency Contacts ─────────────────────────────────────────────────────
 let contacts = [];
 
 function renderContacts() {
@@ -658,12 +636,12 @@ function renderContacts() {
       <div class="ec-fields">
         <div class="field">
           <label>Full Name</label>
-          <input type="text" value="${c.name||''}" placeholder="Contact name"
+          <input type="text" value="${c.name||''}" placeholder="e.g. Priya Mehta"
             oninput="contacts[${i}].name=this.value"/>
         </div>
         <div class="field">
           <label>Relationship</label>
-          <input type="text" value="${c.relation||''}" placeholder="e.g. Spouse"
+          <input type="text" value="${c.relation||''}" placeholder="e.g. Spouse, Parent"
             oninput="contacts[${i}].relation=this.value"/>
         </div>
         <div class="field">
@@ -676,7 +654,8 @@ function renderContacts() {
     list.appendChild(div);
   });
 
-  document.getElementById('contactCount').textContent = `${contacts.length} contact${contacts.length !== 1 ? 's' : ''}`;
+  document.getElementById('contactCount').textContent =
+    `${contacts.length} contact${contacts.length !== 1 ? 's' : ''}`;
 
   list.querySelectorAll('.ec-remove').forEach(btn => {
     btn.addEventListener('click', () => {
@@ -692,34 +671,18 @@ document.getElementById('addContactBtn').addEventListener('click', () => {
   renderContacts();
 });
 
-// ══════════════════════════════════════════════════════
-//  LOAD profile from backend
-// ══════════════════════════════════════════════════════
+// ── Load profile from backend ──────────────────────────────────────────────
 async function loadProfile() {
   try {
-    // Attempt real API — falls back to mock data on failure
-    let data;
-    try {
-      const res = await fetch(`${API_BASE}/user/profile`);
-      if (!res.ok) throw new Error();
-      data = await res.json();
-    } catch {
-      // Mock data for demo
-      data = {
-        name: 'Arjun Mehta', dateOfBirth: '1991-03-12', gender: 'Male',
-        bloodGroup: 'B+', nationality: 'Indian', occupation: 'Senior Software Engineer',
-        email: 'arjun.mehta@example.com', phone: '+91 98765 43210',
-        address: '42 Park Street, Kolkata, WB 700016',
-        medicalInfo: { allergies: 'Penicillin, Peanuts', conditions: 'Mild Hypertension', bloodPressure: '130/85 mmHg', organDonor: true },
-        emergencyContacts: [
-          { name: 'Priya Mehta',  relation: 'Spouse', phone: '+91 91234 56789' },
-          { name: 'Rajesh Mehta', relation: 'Father', phone: '+91 98001 23456' },
-          { name: 'Sunita Sharma',relation: 'Sister', phone: '+91 87654 32109' },
-        ]
-      };
-    }
+    const token = localStorage.getItem("token");
+    const res = await fetch(`${API_BASE}/profile`, {
+      headers: { "Authorization": `Bearer ${token}` }
+    });
 
-    // Populate fields
+    if (!res.ok) throw new Error("Failed to fetch profile");
+
+    const data = await res.json();
+
     setValue('name', data.name);
     setValue('dateOfBirth', data.dateOfBirth);
     setValue('gender', data.gender);
@@ -737,18 +700,13 @@ async function loadProfile() {
     contacts = [...(data.emergencyContacts || [])];
     renderContacts();
 
-    // Update avatar
-    const initials = data.name.split(' ').slice(0,2).map(w=>w[0]).join('').toUpperCase();
-    document.getElementById('avatarInitials').textContent = initials;
-    document.getElementById('avatarName').textContent = data.name;
-
-    document.getElementById('name').addEventListener('input', e => {
-      const parts = e.target.value.trim().split(' ');
-      document.getElementById('avatarInitials').textContent = parts.slice(0,2).map(w=>w[0]||'').join('').toUpperCase();
-      document.getElementById('avatarName').textContent = e.target.value;
-    });
+    if (data.name) {
+      const initials = data.name.split(' ').slice(0,2).map(w => w[0]).join('').toUpperCase();
+      document.getElementById('avatarInitials').textContent = initials;
+      document.getElementById('avatarName').textContent = data.name;
+    }
   } catch (err) {
-    showToast('Failed to load profile data.', 'error');
+    showToast('Could not load profile data. Please fill in your details.', 'error');
   }
 }
 
@@ -757,9 +715,16 @@ function setValue(id, val) {
   if (el && val !== undefined && val !== null) el.value = val;
 }
 
-// ══════════════════════════════════════════════════════
-//  SAVE profile to backend
-// ══════════════════════════════════════════════════════
+// Live avatar update as user types name
+document.getElementById('name').addEventListener('input', e => {
+  const val = e.target.value.trim();
+  const parts = val.split(' ').filter(Boolean);
+  document.getElementById('avatarInitials').textContent =
+    parts.length ? parts.slice(0,2).map(w => w[0]).join('').toUpperCase() : '?';
+  document.getElementById('avatarName').textContent = val || 'Your Name';
+});
+
+// ── Save profile ───────────────────────────────────────────────────────────
 document.getElementById('profileForm').addEventListener('submit', async (e) => {
   e.preventDefault();
   if (!validate()) return;
@@ -789,9 +754,12 @@ document.getElementById('profileForm').addEventListener('submit', async (e) => {
 
   try {
     const token = localStorage.getItem("token");
-    const res = await fetch("https://are-you-alive-4.onrender.com/api/edit-profile", {
+    const res = await fetch(`${API_BASE}/edit-profile`, {
       method: 'PUT',
-      headers: { 'Content-Type': 'application/json', "Authorization": "Bearer " + token },
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
       body: JSON.stringify(payload),
     });
 
@@ -802,13 +770,7 @@ document.getElementById('profileForm').addEventListener('submit', async (e) => {
 
     showToast('Profile saved successfully!', 'success');
   } catch (err) {
-    // Demo mode: show success even when no backend is running
-    if (err.message.includes('Failed to fetch') || err.message.includes('NetworkError')) {
-      console.log('[Demo] Payload that would be sent:', payload);
-      showToast('Profile saved! (demo mode — no backend connected)', 'success');
-    } else {
-      showToast(err.message || 'Failed to save profile.', 'error');
-    }
+    showToast(err.message || 'Failed to save profile.', 'error');
   } finally {
     btn.disabled = false;
     btn.classList.remove('loading');
@@ -819,9 +781,7 @@ document.getElementById('cancelBtn').addEventListener('click', () => {
   if (confirm('Discard unsaved changes?')) loadProfile();
 });
 
-// ══════════════════════════════════════════════════════
-//  VALIDATION
-// ══════════════════════════════════════════════════════
+// ── Validation ─────────────────────────────────────────────────────────────
 function validate() {
   let ok = true;
   const nameEl  = document.getElementById('name');
@@ -838,9 +798,7 @@ function validate() {
   return ok;
 }
 
-// ══════════════════════════════════════════════════════
-//  TOAST
-// ══════════════════════════════════════════════════════
+// ── Toast ──────────────────────────────────────────────────────────────────
 let toastTimer;
 function showToast(msg, type = 'success') {
   const toast = document.getElementById('toast');
@@ -855,9 +813,8 @@ function showToast(msg, type = 'success') {
   toastTimer = setTimeout(() => toast.classList.remove('show'), 3500);
 }
 
-// ══════════════════════════════════════════════════════
-//  INIT
-// ══════════════════════════════════════════════════════
+// ── Init ───────────────────────────────────────────────────────────────────
+renderContacts();
 loadProfile();
 </script>
 </body>
