@@ -60,7 +60,6 @@
     to   { opacity: 1; transform: translateY(0); }
   }
 
-  /* ── Page Title ── */
   .page-title-block {
     display: flex;
     align-items: center;
@@ -90,7 +89,6 @@
   .back-link:hover { color: var(--accent); }
   .back-link svg { width: 14px; height: 14px; }
 
-  /* ── Avatar strip ── */
   .avatar-strip {
     background: var(--surface);
     border: 1px solid var(--border);
@@ -147,7 +145,6 @@
 
   .avatar-info p { font-size: 0.82rem; color: var(--muted); }
 
-  /* ── Card ── */
   .card {
     background: var(--surface);
     border: 1px solid var(--border);
@@ -193,7 +190,6 @@
     padding: 3px 10px;
   }
 
-  /* ── Form Grid ── */
   .form-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -232,7 +228,7 @@
     font-weight: 400;
     transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
     outline: none;
-    /* -webkit-appearance: none; */
+  
   }
 
   .field input:focus,
@@ -251,7 +247,6 @@
 
   .field select { cursor: pointer; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%238a8078' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; padding-right: 36px; }
 
-  /* Toggle */
   .toggle-field {
     display: flex;
     align-items: center;
@@ -378,7 +373,6 @@
   }
   .add-contact-btn svg { width: 16px; height: 16px; }
 
-  /* ── Actions ── */
   .actions {
     display: flex;
     align-items: center;
@@ -419,7 +413,6 @@
 
   .btn svg { width: 16px; height: 16px; }
 
-  /* ── Toast ── */
   .toast {
     position: fixed;
     bottom: 28px;
@@ -469,7 +462,6 @@
 <body>
 <div class="wrapper">
 
-  <!-- Page header -->
   <div class="page-title-block">
     <h1>Edit <span>Profile</span></h1>
     <a href="profile.html" class="back-link">
@@ -478,7 +470,7 @@
     </a>
   </div>
 
-  <!-- Avatar strip -->
+
   <div class="avatar-strip">
     <div class="avatar-wrap">
       <div class="avatar" id="avatarInitials">AM</div>
@@ -556,7 +548,6 @@
       </div>
     </div>
 
-    <!-- Medical Information -->
     <div class="card">
       <div class="card-header">
         <div class="card-icon">
@@ -593,7 +584,6 @@
       </div>
     </div>
 
-    <!-- Emergency Contacts -->
     <div class="card">
       <div class="card-header">
         <div class="card-icon">
@@ -609,7 +599,6 @@
       </button>
     </div>
 
-    <!-- Actions -->
     <div class="actions">
       <button type="button" class="btn btn-ghost" id="cancelBtn">Cancel</button>
       <button type="submit" class="btn btn-primary" id="saveBtn">
@@ -624,21 +613,13 @@
   </form>
 </div>
 
-<!-- Toast -->
 <div class="toast" id="toast">
   <svg id="toastIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></svg>
   <span id="toastMsg"></span>
 </div>
 
 <script>
-// ══════════════════════════════════════════════════════
-//  CONFIG — point to your backend
-// ══════════════════════════════════════════════════════
-const API_BASE = 'http://localhost:3000/api';  // ← change to your server URL
 
-// ══════════════════════════════════════════════════════
-//  EMERGENCY CONTACTS
-// ══════════════════════════════════════════════════════
 let contacts = [];
 
 function renderContacts() {
@@ -692,12 +673,9 @@ document.getElementById('addContactBtn').addEventListener('click', () => {
   renderContacts();
 });
 
-// ══════════════════════════════════════════════════════
-//  LOAD profile from backend
-// ══════════════════════════════════════════════════════
 async function loadProfile() {
   try {
-    // Attempt real API — falls back to mock data on failure
+  
     const token = localStorage.getItem("token");
     let data;
     try {
@@ -859,9 +837,7 @@ function showToast(msg, type = 'success') {
   toastTimer = setTimeout(() => toast.classList.remove('show'), 3500);
 }
 
-// ══════════════════════════════════════════════════════
-//  INIT
-// ══════════════════════════════════════════════════════
+
 loadProfile();
 </script>
 </body>
