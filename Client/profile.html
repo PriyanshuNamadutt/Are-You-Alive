@@ -268,6 +268,7 @@
 
   .info-card .value.accent { color: var(--accent2); }
 
+  /* ── Contact Cards ── */
   .contacts-list { display: flex; flex-direction: column; gap: 14px; }
 
   .contact-card {
@@ -302,11 +303,41 @@
     flex-shrink: 0;
   }
 
-  .contact-info { flex: 1; }
-  .contact-name { font-weight: 500; font-size: 0.95rem; margin-bottom: 3px; }
-  .contact-rel  { font-size: 0.78rem; color: var(--muted); margin-bottom: 2px; }
-  .contact-phone{ font-size: 0.85rem; color: var(--accent2); font-weight: 500; }
+  .contact-info { flex: 1; min-width: 0; }
+  .contact-name  { font-weight: 500; font-size: 0.95rem; margin-bottom: 3px; }
+  .contact-rel   { font-size: 0.78rem; color: var(--muted); margin-bottom: 4px; }
 
+  .contact-details {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .contact-phone,
+  .contact-email {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.82rem;
+    font-weight: 500;
+  }
+
+  .contact-phone { color: var(--accent2); }
+  .contact-email { color: var(--muted); }
+
+  .contact-phone svg,
+  .contact-email svg {
+    width: 12px; height: 12px;
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    flex-shrink: 0;
+  }
+
+  /* ── Loading / Error ── */
   .loading-state {
     display: flex;
     flex-direction: column;
@@ -335,6 +366,7 @@
     font-size: 0.9rem;
   }
 
+  /* ── Animation delays ── */
   .info-card:nth-child(1) { animation-delay: 0.05s; }
   .info-card:nth-child(2) { animation-delay: 0.10s; }
   .info-card:nth-child(3) { animation-delay: 0.15s; }
@@ -352,6 +384,7 @@
     .header-actions { flex-direction: row; flex-wrap: wrap; min-width: unset; }
     .header-btn { width: auto; }
     .info-grid { grid-template-columns: 1fr 1fr; }
+    .contact-details { flex-direction: column; align-items: flex-start; gap: 4px; }
   }
 </style>
 </head>
@@ -374,7 +407,7 @@
 <script>
 async function fetchUserProfile() {
   const token = localStorage.getItem("token");
-  const res = await fetch("https://are-you-alive-4.onrender.com/api/profile", {
+  const res = await fetch("http://localhost:5000/api/profile", {
     headers: { "Authorization": `Bearer ${token}` }
   });
   if (!res.ok) throw new Error("Failed");
@@ -382,7 +415,7 @@ async function fetchUserProfile() {
 }
 
 function initials(name) {
-  return name.split(' ').slice(0,2).map(w => w[0]).join('').toUpperCase();
+  return name.split(' ').slice(0, 2).map(w => w[0]).join('').toUpperCase();
 }
 
 function infoCard(label, value, accent = false) {
@@ -466,7 +499,16 @@ function renderProfile(user) {
       <div class="contact-info">
         <div class="contact-name">${c.name}</div>
         <div class="contact-rel">${c.relation}</div>
-        <div class="contact-phone">${c.phone}</div>
+        <div class="contact-details">
+          <span class="contact-phone">
+            <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 014.12 12 19.79 19.79 0 011.05 3.4 2 2 0 013 1.22h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L7.09 9a16 16 0 006.29 6.29l1.14-1.14a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+            ${c.phone || '—'}
+          </span>
+          <span class="contact-email">
+            <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            ${c.email || '—'}
+          </span>
+        </div>
       </div>
     </div>
   `).join('');
