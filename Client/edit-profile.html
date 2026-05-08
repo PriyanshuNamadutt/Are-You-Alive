@@ -37,7 +37,6 @@
     padding: 40px 20px 80px;
   }
 
-  /* Subtle texture */
   body::before {
     content: '';
     position: fixed;
@@ -228,7 +227,6 @@
     font-weight: 400;
     transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
     outline: none;
-  
   }
 
   .field input:focus,
@@ -291,7 +289,6 @@
   .toggle input:checked ~ .toggle-track { background: var(--accent); }
   .toggle input:checked ~ .toggle-track::after { transform: translateX(18px); }
 
-  /* ── Emergency Contact Cards ── */
   .ec-list { display: flex; flex-direction: column; gap: 16px; }
 
   .ec-item {
@@ -324,7 +321,6 @@
     flex-shrink: 0;
   }
 
-
   .ec-header span { font-size: 0.85rem; font-weight: 500; }
 
   .ec-remove {
@@ -345,9 +341,11 @@
   .ec-fields {
     padding: 18px;
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
     gap: 14px;
   }
+
+  .ec-fields .ec-full { grid-column: 1 / -1; }
 
   .add-contact-btn {
     display: flex;
@@ -436,7 +434,6 @@
   .toast.error   { background: var(--danger-light);  border: 1px solid rgba(192,57,43,0.25);  color: var(--danger); }
   .toast svg { width: 17px; height: 17px; flex-shrink: 0; }
 
-  /* Loading overlay */
   .btn-primary .spinner {
     width: 16px; height: 16px;
     border: 2px solid rgba(255,255,255,0.4);
@@ -454,6 +451,7 @@
     .form-grid { grid-template-columns: 1fr; }
     .form-grid .full { grid-column: 1; }
     .ec-fields { grid-template-columns: 1fr; }
+    .ec-fields .ec-full { grid-column: 1; }
     .avatar-strip { flex-direction: column; align-items: flex-start; }
     .card { padding: 24px 20px; }
   }
@@ -469,7 +467,6 @@
       Back to Profile
     </a>
   </div>
-
 
   <div class="avatar-strip">
     <div class="avatar-wrap">
@@ -548,6 +545,7 @@
       </div>
     </div>
 
+    <!-- Medical Information -->
     <div class="card">
       <div class="card-header">
         <div class="card-icon">
@@ -584,6 +582,7 @@
       </div>
     </div>
 
+    <!-- Emergency Contacts -->
     <div class="card">
       <div class="card-header">
         <div class="card-icon">
@@ -619,6 +618,7 @@
 </div>
 
 <script>
+const API_BASE = 'http://localhost:3000/api';
 
 let contacts = [];
 
@@ -652,6 +652,11 @@ function renderContacts() {
           <input type="tel" value="${c.phone||''}" placeholder="+91 XXXXX XXXXX"
             oninput="contacts[${i}].phone=this.value"/>
         </div>
+        <div class="field">
+          <label>Email ID</label>
+          <input type="email" value="${c.email||''}" placeholder="contact@example.com"
+            oninput="contacts[${i}].email=this.value"/>
+        </div>
       </div>
     `;
     list.appendChild(div);
@@ -669,23 +674,21 @@ function renderContacts() {
 
 document.getElementById('addContactBtn').addEventListener('click', () => {
   if (contacts.length >= 5) return showToast('Maximum 5 emergency contacts allowed.', 'error');
-  contacts.push({ name: '', relation: '', phone: '' });
+  contacts.push({ name: '', relation: '', phone: '', email: '' });
   renderContacts();
 });
 
 async function loadProfile() {
   try {
-  
     const token = localStorage.getItem("token");
     let data;
     try {
-      const res = await fetch("https://are-you-alive-4.onrender.com/api/profile" , {
-        headers: {"Authorization": "Bearer " + token }
+      const res = await fetch("http://localhost:5000/api/profile", {
+        headers: {"Authorization": "Bearer " + token}
       });
       if (!res.ok) throw new Error();
       data = await res.json();
     } catch {
-      // Mock data for demo
       data = {
         name: 'Arjun Mehta', dateOfBirth: '1991-03-12', gender: 'Male',
         bloodGroup: 'B+', nationality: 'Indian', occupation: 'Senior Software Engineer',
@@ -693,14 +696,13 @@ async function loadProfile() {
         address: '42 Park Street, Kolkata, WB 700016',
         medicalInfo: { allergies: 'Penicillin, Peanuts', conditions: 'Mild Hypertension', bloodPressure: '130/85 mmHg', organDonor: true },
         emergencyContacts: [
-          { name: 'Priya Mehta',  relation: 'Spouse', phone: '+91 91234 56789' },
-          { name: 'Rajesh Mehta', relation: 'Father', phone: '+91 98001 23456' },
-          { name: 'Sunita Sharma',relation: 'Sister', phone: '+91 87654 32109' },
+          { name: 'Priya Mehta',   relation: 'Spouse', phone: '+91 91234 56789', email: 'priya.mehta@example.com' },
+          { name: 'Rajesh Mehta',  relation: 'Father', phone: '+91 98001 23456', email: 'rajesh.mehta@example.com' },
+          { name: 'Sunita Sharma', relation: 'Sister', phone: '+91 87654 32109', email: 'sunita.sharma@example.com' },
         ]
       };
     }
 
-    // Populate fields
     setValue('name', data.name);
     setValue('dateOfBirth', data.dateOfBirth);
     setValue('gender', data.gender);
@@ -718,7 +720,6 @@ async function loadProfile() {
     contacts = [...(data.emergencyContacts || [])];
     renderContacts();
 
-    // Update avatar
     const initials = data.name.split(' ').slice(0,2).map(w=>w[0]).join('').toUpperCase();
     document.getElementById('avatarInitials').textContent = initials;
     document.getElementById('avatarName').textContent = data.name;
@@ -738,9 +739,6 @@ function setValue(id, val) {
   if (el && val !== undefined && val !== null) el.value = val;
 }
 
-// ══════════════════════════════════════════════════════
-//  SAVE profile to backend
-// ══════════════════════════════════════════════════════
 document.getElementById('profileForm').addEventListener('submit', async (e) => {
   e.preventDefault();
   if (!validate()) return;
@@ -769,9 +767,8 @@ document.getElementById('profileForm').addEventListener('submit', async (e) => {
   };
 
   try {
-
     const token = localStorage.getItem("token");
-    const res = await fetch("https://are-you-alive-4.onrender.com/api/edit-profile", {
+    const res = await fetch("http://localhost:5000/api/edit-profile", {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json', "Authorization": "Bearer " + token },
       body: JSON.stringify(payload),
@@ -784,7 +781,6 @@ document.getElementById('profileForm').addEventListener('submit', async (e) => {
 
     showToast('Profile saved successfully!', 'success');
   } catch (err) {
-    // Demo mode: show success even when no backend is running
     if (err.message.includes('Failed to fetch') || err.message.includes('NetworkError')) {
       console.log('[Demo] Payload that would be sent:', payload);
       showToast('Profile saved! (demo mode — no backend connected)', 'success');
@@ -801,9 +797,6 @@ document.getElementById('cancelBtn').addEventListener('click', () => {
   if (confirm('Discard unsaved changes?')) loadProfile();
 });
 
-// ══════════════════════════════════════════════════════
-//  VALIDATION
-// ══════════════════════════════════════════════════════
 function validate() {
   let ok = true;
   const nameEl  = document.getElementById('name');
@@ -820,9 +813,6 @@ function validate() {
   return ok;
 }
 
-// ══════════════════════════════════════════════════════
-//  TOAST
-// ══════════════════════════════════════════════════════
 let toastTimer;
 function showToast(msg, type = 'success') {
   const toast = document.getElementById('toast');
@@ -836,7 +826,6 @@ function showToast(msg, type = 'success') {
   clearTimeout(toastTimer);
   toastTimer = setTimeout(() => toast.classList.remove('show'), 3500);
 }
-
 
 loadProfile();
 </script>
