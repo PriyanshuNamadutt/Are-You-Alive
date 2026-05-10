@@ -4,6 +4,7 @@ const emergencyContactSchema = new mongoose.Schema({
   name:     { type: String, required: true, trim: true },
   relation: { type: String, trim: true },
   phone:    { type: String, trim: true },
+  email:    { type: String, trim: true, lowercase: true, default: '' },
   priority: { type: Number, default: 1 },
 }, { _id: true });
  
@@ -31,4 +32,4 @@ const userProfileSchema = new mongoose.Schema({
   emergencyContacts: { type: [emergencyContactSchema], default: [], validate: v => v.length <= 5 },
 }, { timestamps: true });
  
-module.exports = mongoose.model( 'UserProfile', userProfileSchema );
+module.exports = mongoose.model('UserProfile', userProfileSchema);
