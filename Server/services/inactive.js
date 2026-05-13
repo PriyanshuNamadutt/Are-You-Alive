@@ -4,7 +4,6 @@ const { sendEmail } = require("./Mails");
 
 async function checkInactiveUsers() {
 
-    // 48 hours ago
     const hours48Ago = new Date(
         Date.now() - 48 * 60 * 60 * 1000
     );
