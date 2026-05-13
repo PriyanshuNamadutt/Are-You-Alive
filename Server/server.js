@@ -17,6 +17,8 @@ mongoose.connect(process.env.Mongo_URI)
 
 app.use("/api", require("./routes/auth") );
 
+require("./cron/crons");
+
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
